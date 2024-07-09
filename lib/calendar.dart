@@ -28,6 +28,7 @@ class _CalendarState extends State<Calendar> {
           centerTitle: true,
         ),
         body: Container(
+          width: double.infinity,
           child: type == CalendarType.week ? WeekCalendar(1) : WeekCalendar(1),
         ));
   }
