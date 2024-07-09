@@ -52,7 +52,11 @@ class _LoginState extends State<Login> {
       if (user == null) {
         print('User is currently signed out!');
       } else {
-        print('User is signed in!');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const Calendar(),
+          ),
+        );
       }
     });
     super.initState();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/Models/all.dart';
+import 'package:task_manager/Paritals/calendars.dart';
 import 'package:task_manager/Paritals/days.dart';
 
 class Calendar extends StatefulWidget {
@@ -26,6 +27,8 @@ class _CalendarState extends State<Calendar> {
           title: const Text("Calendar"),
           centerTitle: true,
         ),
-        body: weekDay(8));
+        body: Container(
+          child: type == CalendarType.week ? WeekCalendar(1) : WeekCalendar(1),
+        ));
   }
 }
