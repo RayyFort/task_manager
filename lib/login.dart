@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/Models/firebase_strings.dart';
-import 'package:task_manager/day.dart';
+import 'package:task_manager/calendar.dart';
 import 'Models/all.dart' as all;
 
 class Login extends StatefulWidget {
@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
       }
       return credentials;
     } catch (e) {
-      //code="popup-closed-by-user"
+      //e.code="popup-closed-by-user"
       return null;
     }
 
@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
           if (credentials?.user != null) {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const Day(),
+                builder: (context) => const Calendar(),
               ),
             );
           }

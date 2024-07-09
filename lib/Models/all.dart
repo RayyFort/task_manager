@@ -17,3 +17,5 @@ class User {
     return {if (uid != null) 'uid': uid};
   }
 }
+
+enum CalendarType { month, week, day }
