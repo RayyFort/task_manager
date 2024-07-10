@@ -30,11 +30,12 @@ class _LoginState extends State<Login> {
           await FirebaseAuth.instance.signInWithPopup(googleProvider);
       if (credentials.user != null &&
           credentials.additionalUserInfo!.isNewUser) {
-        all.User user = all.User(uid: credentials.user!.uid);
+        all.User user = all.User();
         db
             .collection(USERS)
-            .add(user.toFirestore())
-            .then((documentSnapshot) => print("Added new user"));
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set(<String, dynamic>{}).then(
+                (documentSnapshot) => print("Added new user"));
       }
       return credentials;
     } catch (e) {

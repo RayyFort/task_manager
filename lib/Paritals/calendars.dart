@@ -1,35 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:task_manager/Paritals/days.dart';
 
-Widget WeekCalendar(int startDay) {
+Widget WeekCalendar(DateTime startDay) {
   return Column(
     children: [
+      Text(
+        DateFormat("MMMM").format(startDay),
+        style: TextStyle(fontSize: 24),
+      ),
       Container(
         child: Row(
           children: [
             Container(
               width: 100,
             ),
-            Expanded(
-                child: Center(child: Text("Monday ${(startDay).toString()}"))),
-            Expanded(
-                child: Center(
-                    child: Text("Tuesday ${(startDay + 1).toString()}"))),
+            Expanded(child: Center(child: Text("Monday ${startDay.day}"))),
             Expanded(
                 child: Center(
-                    child: Text("Wednesday ${(startDay + 2).toString()}"))),
+                    child: Text(
+                        "Tuesday ${startDay.add(Duration(days: 1)).day}"))),
             Expanded(
                 child: Center(
-                    child: Text("Thursday ${(startDay + 3).toString()}"))),
-            Expanded(
-                child:
-                    Center(child: Text("Friday ${(startDay + 4).toString()}"))),
+                    child: Text(
+                        "Wednesday ${startDay.add(Duration(days: 2)).day}"))),
             Expanded(
                 child: Center(
-                    child: Text("Saturday ${(startDay + 5).toString()}"))),
+                    child: Text(
+                        "Thursday ${startDay.add(Duration(days: 3)).day}"))),
             Expanded(
-                child:
-                    Center(child: Text("Sunday ${(startDay + 6).toString()}"))),
+                child: Center(
+                    child:
+                        Text("Friday ${startDay.add(Duration(days: 4)).day}"))),
+            Expanded(
+                child: Center(
+                    child: Text(
+                        "Saturday ${startDay.add(Duration(days: 5)).day}"))),
+            Expanded(
+                child: Center(
+                    child:
+                        Text("Sunday ${startDay.add(Duration(days: 6)).day}"))),
           ],
         ),
       ),
@@ -46,8 +56,7 @@ Widget WeekCalendar(int startDay) {
                   ],
                 ),
               ),
-              for (int i = startDay; i < startDay + 7; i++)
-                Flexible(child: weekDay())
+              for (int i = 0; i < 7; i++) Flexible(child: weekDay())
             ],
           ),
         ),

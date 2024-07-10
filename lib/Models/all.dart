@@ -1,21 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
-  final String? uid;
+  List<Task>? tasks;
 
-  User({this.uid});
+  User({this.tasks});
 
   factory User.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
     final data = snapshot.data();
-    return User(uid: data?['uid']);
+    Map<String, dynamic>? tempMap = data?['tasks'];
+    return User(tasks: data?['tasks']);
   }
 
   Map<String, dynamic> toFirestore() {
-    return {if (uid != null) 'uid': uid};
+    return {if (tasks != null) 'tasks': tasks};
   }
 }
 
 enum CalendarType { month, week, day }
+
+class Task {
+  final String? title;
+
+  Task({this.title});
+
+  factory Task.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return Task(title: data?['title']);
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {if (title != null) 'title': title};
+  }
+}
