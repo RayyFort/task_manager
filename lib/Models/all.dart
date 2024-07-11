@@ -35,15 +35,15 @@ class Task {
     final data = snapshot.data();
     return Task(
         title: data?['title'],
-        dateStart: data?['dateStart'],
-        dateEnd: data?['dateEnd']);
+        dateStart: (data?['dateStart'] as Timestamp).toDate(),
+        dateEnd: (data?['dateEnd'] as Timestamp).toDate());
   }
 
   Map<String, dynamic> toFirestore() {
     return {
       if (title != null) 'title': title,
-      if (dateStart != null) 'dateStart': dateStart,
-      if (dateEnd != null) 'dateEnd': dateEnd
+      if (dateStart != null) 'dateStart': Timestamp.fromDate(dateStart!),
+      if (dateEnd != null) 'dateEnd': Timestamp.fromDate(dateEnd!)
     };
   }
 }

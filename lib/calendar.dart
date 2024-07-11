@@ -18,38 +18,13 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   late CalendarType type;
   DateTime currentDate = DateTime.now();
-  List<Task> tasks = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void initState() {
     type = CalendarType.week;
-    getTasks();
     super.initState();
-  }
-
-  Future<void> getTasks() async {
-    switch (type) {
-      case CalendarType.week:
-        await db
-            .collection(USERS)
-            .doc(auth.currentUser!.uid)
-            .collection(TASKS)
-            .withConverter(
-                fromFirestore: Task.fromFirestore,
-                toFirestore: (Task task, _) => task.toFirestore())
-            .get()
-            .then((value) {
-          tasks = List.from(value.docs.map((doc) => doc.data()));
-        }, onError: (e) {
-          print(e);
-        });
-      case CalendarType.month:
-      // TODO: Handle this case.
-      case CalendarType.day:
-      // TODO: Handle this case.
-    }
   }
 
   @override
@@ -66,8 +41,8 @@ class _CalendarState extends State<Calendar> {
         body: Container(
           width: double.infinity,
           child: type == CalendarType.week
-              ? WeekCalendar(currentDate)
-              : WeekCalendar(currentDate),
+              ? WeekCalendar(startDay: currentDate)
+              : WeekCalendar(startDay: currentDate),
         ));
   }
 }
