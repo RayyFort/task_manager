@@ -17,6 +17,7 @@ class _WeekDayState extends State<WeekDay> {
   List<Task> tasks = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
+  int taskCount = 0;
 
   Future<void> getTasks() async {
     await db
@@ -42,10 +43,19 @@ class _WeekDayState extends State<WeekDay> {
         .get()
         .then((value) {
       tasks = List.from(value.docs.map((doc) => doc.data()));
-      setState(() {});
+      if (tasks.isNotEmpty) setState(() {});
     }, onError: (e) {
       print(e);
     });
+  }
+
+  Widget? isTime(Task task, int currentTime) {
+    int middle = ((task.dateStart!.hour + task.dateEnd!.hour) / 2).floor();
+    if (middle == currentTime) {
+      return Text(task.title!);
+    }
+
+    return null;
   }
 
   @override
@@ -60,12 +70,22 @@ class _WeekDayState extends State<WeekDay> {
       decoration: BoxDecoration(border: Border.all(color: Colors.black)),
       child: Column(
         children: [
-          Expanded(
-              child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-          ))
+          for (int i = 0; i <= 24; i++)
+            if (tasks.isNotEmpty &&
+                tasks[taskCount].dateStart!.hour <= i &&
+                tasks[taskCount].dateEnd!.hour > i)
+              Expanded(
+                  child: Container(
+                      color: Colors.amber,
+                      width: double.infinity,
+                      child: Center(child: isTime(tasks[taskCount], i))))
+            else
+              Expanded(
+                child: Container(
+                  color: Colors.black,
+                  width: double.infinity,
+                ),
+              )
         ],
       ),
     );

@@ -68,7 +68,8 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       for (int i = 1; i <= 24; i++) ...[
                         Spacer(),
                         Expanded(child: Text(i.toString())),
-                      ]
+                      ],
+                      Spacer(),
                     ],
                   ),
                 ),
