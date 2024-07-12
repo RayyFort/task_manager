@@ -72,13 +72,18 @@ class _WeekDayState extends State<WeekDay> {
         children: [
           for (int i = 0; i <= 24; i++)
             if (tasks.isNotEmpty &&
+                tasks.length > taskCount &&
                 tasks[taskCount].dateStart!.hour <= i &&
                 tasks[taskCount].dateEnd!.hour > i)
-              Expanded(
-                  child: Container(
-                      color: Colors.amber,
-                      width: double.infinity,
-                      child: Center(child: isTime(tasks[taskCount], i))))
+              () {
+                Expanded temp = Expanded(
+                    child: Container(
+                        color: Colors.amber,
+                        width: double.infinity,
+                        child: Center(child: isTime(tasks[taskCount], i))));
+                if (tasks[taskCount].dateEnd!.hour - 1 == i) taskCount++;
+                return temp;
+              }()
             else
               Expanded(
                 child: Container(
