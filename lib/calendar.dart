@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Models/firebase_strings.dart';
 import 'package:task_manager/Paritals/calendars.dart';
+import 'package:task_manager/Paritals/createPopup.dart';
 import 'package:task_manager/Paritals/days.dart';
 import 'Models/all.dart' as all;
 
@@ -37,6 +38,30 @@ class _CalendarState extends State<Calendar> {
             style: TextStyle(fontSize: 32),
           ),
           centerTitle: true,
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text('Drawer Header'),
+              ),
+              ListTile(
+                title: const Text('Add task'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(Createpopup<void>());
+                },
+              ),
+              ListTile(
+                title: const Text('Logout'),
+                onTap: () {},
+              ),
+            ],
+          ),
         ),
         body: Container(
           width: double.infinity,
