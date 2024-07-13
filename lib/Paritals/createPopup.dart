@@ -52,46 +52,43 @@ class Createpopup<T> extends PopupRoute<T> {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
-    return Center(
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      margin: EdgeInsets.fromLTRB(500, 250, 500, 250),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
       child: Dialog(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          margin: EdgeInsets.all(100),
-          padding: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-          ),
-          child: Column(
-            children: <Widget>[
-              Text('Create Task',
-                  style: Theme.of(context).textTheme.headlineSmall),
-              Text("title"),
-              TextField(
-                controller: titleController,
-              ),
-              MaterialButton(
-                onPressed: () async {
-                  startDate = await showOmniDateTimePicker(context: context);
-                },
-                child: Text("start date"),
-              ),
-              MaterialButton(
-                onPressed: () async {
-                  endDate = await showOmniDateTimePicker(context: context);
-                },
-                child: Text("end date"),
-              ),
-              Spacer(),
-              MaterialButton(
-                onPressed: () async {
-                  await CreateTask();
-                },
-                child: Text("send"),
-              )
-            ],
-          ),
+        child: Column(
+          children: <Widget>[
+            Text('Create Task',
+                style: Theme.of(context).textTheme.headlineSmall),
+            Text("title"),
+            TextField(
+              controller: titleController,
+            ),
+            MaterialButton(
+              onPressed: () async {
+                startDate = await showOmniDateTimePicker(context: context);
+              },
+              child: Text("start date"),
+            ),
+            MaterialButton(
+              onPressed: () async {
+                endDate = await showOmniDateTimePicker(context: context);
+              },
+              child: Text("end date"),
+            ),
+            Spacer(),
+            MaterialButton(
+              onPressed: () async {
+                await CreateTask();
+              },
+              child: Text("send"),
+            )
+          ],
         ),
       ),
     );

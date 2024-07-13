@@ -64,12 +64,12 @@ class _WeekCalendarState extends State<WeekCalendar> {
                   width: 100,
                   child: Column(
                     children: [
-                      Expanded(child: Text(0.toString())),
-                      for (int i = 1; i <= 24; i++) ...[
-                        Spacer(),
-                        Expanded(child: Text(i.toString())),
-                      ],
-                      Spacer(),
+                      for (int i = 0; i <= 23; i++)
+                        Expanded(
+                            child: Text(
+                          i.toString(),
+                          style: TextStyle(height: 0.1),
+                        )),
                     ],
                   ),
                 ),
