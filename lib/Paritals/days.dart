@@ -70,7 +70,9 @@ class _WeekDayState extends State<WeekDay> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.black), color: Colors.black),
+      margin: EdgeInsets.fromLTRB(1, 0, 1, 0),
       width: double.infinity,
       child: Column(children: () {
         List<Widget> allHours = [];
@@ -78,23 +80,6 @@ class _WeekDayState extends State<WeekDay> {
         int flexSum = 0;
 
         if (tasks.isNotEmpty) {
-          // if (tasks[0].dateStart!.hour == 0 &&
-          //     tasks[0].dateStart!.minute == 0) {
-          //   allHours.add(
-          //     Expanded(
-          //       flex: ((tasks[0].dateEnd!.hour * 1000) -
-          //               (tasks[0].dateStart!.hour * 1000)) +
-          //           (tasks[0].dateEnd!.minute - tasks[0].dateStart!.minute),
-          //       child: Container(
-          //         color: Color.fromARGB(255, 94, 255, 0),
-          //         width: double.infinity,
-          //         child: Center(child: Center(child: Text(tasks[0].title!))),
-          //       ),
-          //     ),
-          //   );
-          //   currentTime = tasks[taskCount].dateEnd!;
-          // }
-
           for (int i = 0; i < tasks.length; i++) {
             if (i == 0) {
               allHours.add(Expanded(
@@ -120,7 +105,9 @@ class _WeekDayState extends State<WeekDay> {
                     return tempflex;
                   }(),
                   child: Container(
-                    color: Color.fromARGB(255, 94, 255, 0),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 94, 255, 0),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: double.infinity,
                     child: Center(
                         child: Center(
@@ -158,7 +145,9 @@ class _WeekDayState extends State<WeekDay> {
                     return tempflex;
                   }(),
                   child: Container(
-                    color: Color.fromARGB(255, 94, 255, 0),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 94, 255, 0),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: double.infinity,
                     child: Center(
                         child: Center(
