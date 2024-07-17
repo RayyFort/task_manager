@@ -1,24 +1,36 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Paritals/days.dart';
 
 class WeekCalendar extends StatefulWidget {
-  WeekCalendar({super.key, required this.startDay});
+  WeekCalendar({super.key, required this.currentDate});
 
-  DateTime startDay;
+  DateTime currentDate;
 
   @override
   State<WeekCalendar> createState() => _WeekCalendarState();
 }
 
 class _WeekCalendarState extends State<WeekCalendar> {
+  late DateTime startDate;
+
+  DateTime mostRecentMonday(DateTime date) =>
+      DateTime(date.year, date.month, date.day - (date.weekday - 1));
+
+  @override
+  void initState() {
+    startDate = mostRecentMonday(widget.currentDate);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          DateFormat("MMMM").format(widget.startDay),
+          DateFormat("MMMM").format(startDate),
           style: TextStyle(fontSize: 24),
         ),
         Container(
@@ -27,32 +39,31 @@ class _WeekCalendarState extends State<WeekCalendar> {
               Container(
                 width: 100,
               ),
-              Expanded(
-                  child: Center(child: Text("Monday ${widget.startDay.day}"))),
-              Expanded(
-                  child: Center(
-                      child: Text(
-                          "Tuesday ${widget.startDay.add(Duration(days: 1)).day}"))),
+              Expanded(child: Center(child: Text("Monday ${startDate.day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Wednesday ${widget.startDay.add(Duration(days: 2)).day}"))),
+                          "Tuesday ${startDate.add(Duration(days: 1)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Thursday ${widget.startDay.add(Duration(days: 3)).day}"))),
+                          "Wednesday ${startDate.add(Duration(days: 2)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Friday ${widget.startDay.add(Duration(days: 4)).day}"))),
+                          "Thursday ${startDate.add(Duration(days: 3)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Saturday ${widget.startDay.add(Duration(days: 5)).day}"))),
+                          "Friday ${startDate.add(Duration(days: 4)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Sunday ${widget.startDay.add(Duration(days: 6)).day}"))),
+                          "Saturday ${startDate.add(Duration(days: 5)).day}"))),
+              Expanded(
+                  child: Center(
+                      child: Text(
+                          "Sunday ${startDate.add(Duration(days: 6)).day}"))),
             ],
           ),
         ),
@@ -76,7 +87,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
                 for (int i = 0; i < 7; i++)
                   Flexible(
                       child: WeekDay(
-                          currentDate: widget.startDay.add(Duration(days: i))))
+                          currentDate: startDate.add(Duration(days: i))))
               ],
             ),
           ),

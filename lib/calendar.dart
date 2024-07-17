@@ -66,8 +66,8 @@ class _CalendarState extends State<Calendar> {
         body: Container(
           width: double.infinity,
           child: type == CalendarType.week
-              ? WeekCalendar(startDay: currentDate)
-              : WeekCalendar(startDay: currentDate),
+              ? WeekCalendar(currentDate: currentDate)
+              : WeekCalendar(currentDate: currentDate),
         ));
   }
 }
