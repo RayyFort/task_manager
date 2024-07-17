@@ -29,9 +29,28 @@ class _WeekCalendarState extends State<WeekCalendar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          DateFormat("MMMM").format(startDate),
-          style: TextStyle(fontSize: 24),
+        Container(
+          width: double.infinity,
+          child: Row(
+            children: [
+              MaterialButton(
+                  onPressed: () {
+                    startDate = startDate.add(Duration(days: -7));
+                    setState(() {});
+                  },
+                  child: Text("back")),
+              MaterialButton(
+                  onPressed: () {
+                    startDate = startDate.add(Duration(days: 7));
+                    setState(() {});
+                  },
+                  child: Text("forward")),
+              Text(
+                DateFormat("MMMM").format(startDate),
+                style: TextStyle(fontSize: 24),
+              ),
+            ],
+          ),
         ),
         Container(
           child: Row(
