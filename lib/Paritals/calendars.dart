@@ -104,9 +104,13 @@ class _WeekCalendarState extends State<WeekCalendar> {
                   ),
                 ),
                 for (int i = 0; i < 7; i++)
-                  Flexible(
-                      child: WeekDay(
-                          currentDate: startDate.add(Duration(days: i))))
+                  Flexible(child: () {
+                    GlobalKey tempKey = GlobalKey();
+                    WeekDay weekDay = WeekDay(
+                        key: tempKey,
+                        currentDate: startDate.add(Duration(days: i)));
+                    return weekDay;
+                  }())
               ],
             ),
           ),
