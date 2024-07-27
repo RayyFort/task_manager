@@ -17,6 +17,8 @@ class _WeekDayState extends State<WeekDay> {
   List<Task> tasks = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
+  List<Widget> tasksWidget = [];
+  int? currentHover;
 
   Future<void> getTasks() async {
     await db
@@ -42,7 +44,9 @@ class _WeekDayState extends State<WeekDay> {
         .get()
         .then((value) {
       tasks = List.from(value.docs.map((doc) => doc.data()));
-      if (tasks.isNotEmpty) setState(() {});
+      if (tasks.isNotEmpty) {
+        setupTasks();
+      }
     }, onError: (e) {
       print(e);
     });
@@ -61,6 +65,168 @@ class _WeekDayState extends State<WeekDay> {
     return null;
   }
 
+  void setupTasks() {
+    List<Widget> allHours = [];
+    DateTime? currentTime;
+    int flexSum = 0;
+    for (int i = 0; i < tasks.length; i++) {
+      if (i == 0) {
+        allHours.add(Expanded(
+            flex: () {
+              int tempflex =
+                  (tasks[i].dateStart!.hour * 60) + tasks[i].dateStart!.minute;
+              flexSum += tempflex;
+              return tempflex;
+            }(),
+            child: Container(
+              margin: EdgeInsets.all(0.2),
+              color: Colors.black,
+              width: double.infinity,
+            )));
+        allHours.add(
+          Expanded(
+            flex: () {
+              Duration tempDuration =
+                  tasks[i].dateEnd!.difference(tasks[i].dateStart!);
+
+              int tempflex = tempDuration.inMinutes;
+              flexSum += tempflex;
+              return tempflex;
+            }(),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 94, 255, 0),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              width: double.infinity,
+              child: Expanded(
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.basic,
+                  onEnter: (event) {
+                    setState(() {
+                      currentHover = i;
+                      setupTasks();
+                    });
+                  },
+                  onExit: (event) {
+                    setState(() {
+                      currentHover = null;
+                      setupTasks();
+                    });
+                  },
+                  child: Center(
+                      child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Text(
+                        tasks[i].title!,
+                        style: TextStyle(height: 0.1),
+                      ),
+                      if (currentHover == i)
+                        Positioned(
+                            bottom: -30,
+                            child: Container(
+                              color: Colors.white,
+                              child: Text(
+                                "${tasks[i].dateStart!.hour}h${tasks[i].dateStart!.minute.toString().padLeft(2, '0')} - ${tasks[i].dateEnd!.hour}h${tasks[i].dateEnd!.minute.toString().padLeft(2, '0')}",
+                              ),
+                            ))
+                    ],
+                  )),
+                ),
+              ),
+            ),
+          ),
+        );
+        currentTime = tasks[i].dateStart;
+      } else {
+        allHours.add(Expanded(
+            flex: () {
+              Duration tempDuration =
+                  tasks[i].dateStart!.difference(tasks[i - 1].dateEnd!);
+
+              int tempflex = tempDuration.inMinutes;
+              flexSum += tempflex;
+              return tempflex;
+            }(),
+            child: Container(
+              margin: EdgeInsets.all(0.2),
+              color: Colors.black,
+              width: double.infinity,
+            )));
+        allHours.add(
+          Expanded(
+            flex: () {
+              Duration tempDuration =
+                  tasks[i].dateEnd!.difference(tasks[i].dateStart!);
+
+              int tempflex = tempDuration.inMinutes;
+              flexSum += tempflex;
+              return tempflex;
+            }(),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 94, 255, 0),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              width: double.infinity,
+              child: Expanded(
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.basic,
+                  onEnter: (event) {
+                    setState(() {
+                      currentHover = i;
+                      setupTasks();
+                    });
+                  },
+                  onExit: (event) {
+                    setState(() {
+                      currentHover = null;
+                      setupTasks();
+                    });
+                  },
+                  child: Center(
+                      child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Text(
+                        tasks[i].title!,
+                        style: TextStyle(height: 0.1),
+                      ),
+                      if (currentHover == i)
+                        Positioned(
+                            bottom: -30,
+                            child: Container(
+                              color: Colors.white,
+                              child: Text(
+                                "${tasks[i].dateStart!.hour}h${tasks[i].dateStart!.minute.toString().padLeft(2, '0')} - ${tasks[i].dateEnd!.hour}h${tasks[i].dateEnd!.minute.toString().padLeft(2, '0')}",
+                              ),
+                            ))
+                    ],
+                  )),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+      setState(() {});
+    }
+    allHours.add(Expanded(
+        flex: () {
+          int tempflex = 1440 -
+              ((tasks[tasks.length - 1].dateEnd!.hour * 60) +
+                  tasks[tasks.length - 1].dateEnd!.minute);
+          flexSum += tempflex;
+          return tempflex;
+        }(),
+        child: Container(
+          margin: EdgeInsets.all(0.2),
+          color: Colors.black,
+          width: double.infinity,
+        )));
+    allHours = List.from(allHours.reversed);
+    tasksWidget = allHours;
+  }
+
   @override
   void initState() {
     getTasks();
@@ -74,117 +240,22 @@ class _WeekDayState extends State<WeekDay> {
           border: Border.all(color: Colors.black), color: Colors.black),
       margin: EdgeInsets.fromLTRB(1, 0, 1, 0),
       width: double.infinity,
-      child: Column(children: () {
-        List<Widget> allHours = [];
-        DateTime? currentTime;
-        int flexSum = 0;
-
-        if (tasks.isNotEmpty) {
-          for (int i = 0; i < tasks.length; i++) {
-            if (i == 0) {
-              allHours.add(Expanded(
-                  flex: () {
-                    int tempflex = (tasks[i].dateStart!.hour * 60) +
-                        tasks[i].dateStart!.minute;
-                    flexSum += tempflex;
-                    return tempflex;
-                  }(),
-                  child: Container(
-                    margin: EdgeInsets.all(0.2),
-                    color: Colors.black,
-                    width: double.infinity,
-                  )));
-              allHours.add(
-                Expanded(
-                  flex: () {
-                    Duration tempDuration =
-                        tasks[i].dateEnd!.difference(tasks[i].dateStart!);
-
-                    int tempflex = tempDuration.inMinutes;
-                    flexSum += tempflex;
-                    return tempflex;
-                  }(),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 94, 255, 0),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    width: double.infinity,
-                    child: Center(
-                        child: Center(
-                            child: Text(
-                      tasks[i].title!,
-                      style: TextStyle(height: 0.1),
-                    ))),
-                  ),
-                ),
-              );
-              currentTime = tasks[i].dateStart;
-            } else {
-              allHours.add(Expanded(
-                  flex: () {
-                    Duration tempDuration =
-                        tasks[i].dateStart!.difference(tasks[i - 1].dateEnd!);
-
-                    int tempflex = tempDuration.inMinutes;
-                    flexSum += tempflex;
-                    return tempflex;
-                  }(),
-                  child: Container(
-                    margin: EdgeInsets.all(0.2),
-                    color: Colors.black,
-                    width: double.infinity,
-                  )));
-              allHours.add(
-                Expanded(
-                  flex: () {
-                    Duration tempDuration =
-                        tasks[i].dateEnd!.difference(tasks[i].dateStart!);
-
-                    int tempflex = tempDuration.inMinutes;
-                    flexSum += tempflex;
-                    return tempflex;
-                  }(),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 94, 255, 0),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    width: double.infinity,
-                    child: Center(
-                        child: Center(
-                            child: Text(
-                      tasks[i].title!,
-                      style: TextStyle(height: 0.1),
-                    ))),
-                  ),
-                ),
-              );
+      child: Column(
+          verticalDirection: VerticalDirection.up,
+          children: () {
+            if (tasksWidget.isNotEmpty) {
+              return tasksWidget;
             }
-          }
-          allHours.add(Expanded(
-              flex: () {
-                int tempflex = 1440 -
-                    ((tasks[tasks.length - 1].dateEnd!.hour * 60) +
-                        tasks[tasks.length - 1].dateEnd!.minute);
-                flexSum += tempflex;
-                return tempflex;
-              }(),
-              child: Container(
-                margin: EdgeInsets.all(0.2),
-                color: Colors.black,
-                width: double.infinity,
-              )));
-        } else {
-          allHours.add(Expanded(
-              flex: 1,
-              child: Container(
-                margin: EdgeInsets.all(0.2),
-                color: Colors.black,
-                width: double.infinity,
-              )));
-        }
-
-        return allHours;
-      }()),
+            return List<Widget>.filled(
+                1,
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.all(0.2),
+                      color: Colors.black,
+                      width: double.infinity,
+                    )));
+          }()),
     );
   }
 }
