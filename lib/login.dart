@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -65,25 +67,53 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Login"),
-        centerTitle: true,
-      ),
-      body: MaterialButton(
-        onPressed: () async {
-          UserCredential? credentials = await signInWithGoogle();
-          if (credentials?.user != null) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Calendar(),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage(
+                  "../../assets/pexels-tuesday-temptation-190692-3780104.jpg"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Spacer(),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: Text(
+                  "Task Manager",
+                  style: TextStyle(
+                      fontSize: 60, fontFamily: "Bodoni", color: Colors.white),
+                ),
               ),
-            );
-          }
-          int i = 1;
-        },
-        child: const Text("login"),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                child: MaterialButton(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  onPressed: () async {
+                    UserCredential? credentials = await signInWithGoogle();
+                    if (credentials?.user != null) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const Calendar(),
+                        ),
+                      );
+                    }
+                    int i = 1;
+                  },
+                  child: Image.asset(
+                    "../../customIcons/googleIcon.png",
+                    scale: 12.5,
+                  ),
+                ),
+              ),
+              Spacer()
+            ],
+          ),
+        ),
       ),
     );
   }
