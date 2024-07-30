@@ -80,19 +80,23 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Spacer(),
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: Text(
-                  "Task Manager",
-                  style: TextStyle(
-                      fontSize: 60, fontFamily: "Bodoni", color: Colors.white),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    "Task Manager",
+                    style: TextStyle(
+                        fontSize: 60,
+                        fontFamily: "Bodoni",
+                        color: Colors.white),
+                  ),
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(14)),
+                    color: Color.fromARGB(255, 245, 242, 255)),
                 child: MaterialButton(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                   onPressed: () async {
                     UserCredential? credentials = await signInWithGoogle();
                     if (credentials?.user != null) {
@@ -104,9 +108,24 @@ class _LoginState extends State<Login> {
                     }
                     int i = 1;
                   },
-                  child: Image.asset(
-                    "../../customIcons/googleIcon.png",
-                    scale: 12.5,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          "../../customIcons/googleIcon.png",
+                          scale: 12.5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

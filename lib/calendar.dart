@@ -30,44 +30,57 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text(
-            "Calendar",
-            style: TextStyle(fontSize: 32),
-          ),
-          centerTitle: true,
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text('Drawer Header'),
+    return Container(
+      color: const Color.fromARGB(255, 65, 65, 65),
+      // decoration: BoxDecoration(
+      //     color: Colors.white,
+      //     image: DecorationImage(
+      //         image: AssetImage("pexels-tuesday-temptation-190692-3780104.jpg"),
+      //         fit: BoxFit.cover)),
+      child: Theme(
+        data: ThemeData(
+            textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white))),
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              title: const Text(
+                "Calendar",
+                style: TextStyle(fontSize: 32),
               ),
-              ListTile(
-                title: const Text('Add task'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(Createpopup<void>());
-                },
+              centerTitle: true,
+            ),
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                    child: Text('Drawer Header'),
+                  ),
+                  ListTile(
+                    title: const Text('Add task'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(Createpopup<void>());
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Logout'),
+                    onTap: () {},
+                  ),
+                ],
               ),
-              ListTile(
-                title: const Text('Logout'),
-                onTap: () {},
-              ),
-            ],
-          ),
-        ),
-        body: Container(
-          width: double.infinity,
-          child: type == CalendarType.week
-              ? WeekCalendar(currentDate: currentDate)
-              : WeekCalendar(currentDate: currentDate),
-        ));
+            ),
+            body: Container(
+              width: double.infinity,
+              child: type == CalendarType.week
+                  ? WeekCalendar(currentDate: currentDate)
+                  : WeekCalendar(currentDate: currentDate),
+            )),
+      ),
+    );
   }
 }
