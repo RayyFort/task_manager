@@ -30,24 +30,35 @@ class _WeekCalendarState extends State<WeekCalendar> {
     return Column(
       children: [
         Container(
+          color: Color.fromARGB(255, 41, 45, 53),
           width: double.infinity,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              MaterialButton(
-                  onPressed: () {
-                    startDate = startDate.add(Duration(days: -7));
-                    setState(() {});
-                  },
-                  child: Text("back")),
-              MaterialButton(
-                  onPressed: () {
-                    startDate = startDate.add(Duration(days: 7));
-                    setState(() {});
-                  },
-                  child: Text("forward")),
-              Text(
-                DateFormat("MMMM").format(startDate),
-                style: TextStyle(fontSize: 24),
+              Container(
+                color: Colors.white,
+                child: MaterialButton(
+                    onPressed: () {
+                      startDate = startDate.add(Duration(days: -7));
+                      setState(() {});
+                    },
+                    child: Text("back")),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Text(
+                  DateFormat("MMMM").format(startDate),
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                child: MaterialButton(
+                    onPressed: () {
+                      startDate = startDate.add(Duration(days: 7));
+                      setState(() {});
+                    },
+                    child: Text("forward")),
               ),
             ],
           ),

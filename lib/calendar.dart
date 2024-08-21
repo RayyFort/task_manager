@@ -31,7 +31,7 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 65, 65, 65),
+      color: const Color.fromARGB(255, 49, 54, 63),
       // decoration: BoxDecoration(
       //     color: Colors.white,
       //     image: DecorationImage(
@@ -42,14 +42,6 @@ class _CalendarState extends State<Calendar> {
             textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white))),
         child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              title: const Text(
-                "Calendar",
-                style: TextStyle(fontSize: 32),
-              ),
-              centerTitle: true,
-            ),
             drawer: Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,

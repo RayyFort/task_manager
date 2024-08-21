@@ -128,6 +128,7 @@ class _WeekDayState extends State<WeekDay> {
                               color: Colors.white,
                               child: Text(
                                 "${tasks[i].dateStart!.hour}h${tasks[i].dateStart!.minute.toString().padLeft(2, '0')} - ${tasks[i].dateEnd!.hour}h${tasks[i].dateEnd!.minute.toString().padLeft(2, '0')}",
+                                style: TextStyle(color: Colors.black),
                               ),
                             ))
                     ],
@@ -198,6 +199,7 @@ class _WeekDayState extends State<WeekDay> {
                               color: Colors.white,
                               child: Text(
                                 "${tasks[i].dateStart!.hour}h${tasks[i].dateStart!.minute.toString().padLeft(2, '0')} - ${tasks[i].dateEnd!.hour}h${tasks[i].dateEnd!.minute.toString().padLeft(2, '0')}",
+                                style: TextStyle(color: Colors.black),
                               ),
                             ))
                     ],
