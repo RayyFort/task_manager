@@ -15,7 +15,10 @@ jobs:
       - name: flutter-cli
         uses: steebchen/flutter@v1.1.0
 
-      - run: flutter doctor
+      - name: install dependencies
+        uses: steebchen/flutter@v1.1.0
+        with:
+          args: doctor
       
       - run: npm ci
             
