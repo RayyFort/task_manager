@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: firebase experiments:enable webframeworks
+      - run: firebase deploy
       - run: npm ci
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
