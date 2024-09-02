@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           image: DecorationImage(
               image: AssetImage(
-                  "../../docs/assets/pexels-tuesday-temptation-190692-3780104.jpg"),
+                  "../../assets/pexels-tuesday-temptation-190692-3780104.jpg"),
               fit: BoxFit.cover)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
