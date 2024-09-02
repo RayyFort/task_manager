@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm ci
       - name: flutter-cli
-      - uses: steebchen/flutter@v1.1.0
+        uses: steebchen/flutter@v1.1.0
             
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
