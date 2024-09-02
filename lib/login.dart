@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           image: DecorationImage(
               image: AssetImage(
-                  "../../assets/pexels-tuesday-temptation-190692-3780104.jpg"),
+                  "images/pexels-tuesday-temptation-190692-3780104.jpg"),
               fit: BoxFit.cover)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Image.asset(
-                          "../../customIcons/googleIcon.png",
+                          "customIcons/googleIcon.png",
                           scale: 12.5,
                         ),
                         Padding(
