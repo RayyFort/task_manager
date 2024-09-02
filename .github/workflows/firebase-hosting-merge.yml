@@ -11,9 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci
+
       - name: flutter-cli
         uses: steebchen/flutter@v1.1.0
+
+      - run: flutter doctor
+      
+      - run: npm ci
             
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
