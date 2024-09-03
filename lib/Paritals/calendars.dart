@@ -97,33 +97,31 @@ class _WeekCalendarState extends State<WeekCalendar> {
             ],
           ),
         ),
-        Container(
-          child: Flexible(
-            child: Row(
-              children: [
-                Container(
-                  width: 100,
-                  child: Column(
-                    children: [
-                      for (int i = 0; i <= 23; i++)
-                        Expanded(
-                            child: Text(
-                          i.toString(),
-                          style: TextStyle(height: 0.1),
-                        )),
-                    ],
-                  ),
+        Flexible(
+          child: Row(
+            children: [
+              Container(
+                width: 100,
+                child: Column(
+                  children: [
+                    for (int i = 0; i <= 23; i++)
+                      Expanded(
+                          child: Text(
+                        i.toString(),
+                        style: TextStyle(height: 0.1),
+                      )),
+                  ],
                 ),
-                for (int i = 0; i < 7; i++)
-                  Flexible(child: () {
-                    GlobalKey tempKey = GlobalKey();
-                    WeekDay weekDay = WeekDay(
-                        key: tempKey,
-                        currentDate: startDate.add(Duration(days: i)));
-                    return weekDay;
-                  }())
-              ],
-            ),
+              ),
+              for (int i = 0; i < 7; i++)
+                Flexible(child: () {
+                  GlobalKey tempKey = GlobalKey();
+                  WeekDay weekDay = WeekDay(
+                      key: tempKey,
+                      currentDate: startDate.add(Duration(days: i)));
+                  return weekDay;
+                }())
+            ],
           ),
         ),
       ],
