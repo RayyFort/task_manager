@@ -21,6 +21,7 @@ class _WeekDayState extends State<WeekDay> {
   int? currentHover;
 
   Future<void> getTasks() async {
+    tasks = List.empty();
     await db
         .collection(USERS)
         .doc(auth.currentUser!.uid)
