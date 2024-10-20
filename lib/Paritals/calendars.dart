@@ -3,9 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:task_manager/Paritals/days.dart';
 
 class WeekCalendar extends StatefulWidget {
-  WeekCalendar({super.key, required this.currentDate});
+  WeekCalendar({super.key, required this.currentDate, required this.scaffoldKey});
 
   DateTime currentDate;
+
+  GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   State<WeekCalendar> createState() => _WeekCalendarState();
@@ -33,6 +35,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              IconButton(onPressed: (){
+                widget.scaffoldKey.currentState?.openDrawer();
+              }, icon: Icon(Icons.menu, color: Colors.white,)),
               Container(
                 color: Colors.white,
                 child: MaterialButton(

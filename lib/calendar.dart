@@ -17,6 +17,7 @@ class _CalendarState extends State<Calendar> {
   DateTime currentDate = DateTime.now();
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
+  final GlobalKey<ScaffoldState> _sKey = GlobalKey();
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _CalendarState extends State<Calendar> {
         data: ThemeData(
             textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white))),
         child: Scaffold(
+            key: _sKey,
             backgroundColor: Colors.transparent,
             drawer: Drawer(
               child: ListView(
@@ -65,8 +67,8 @@ class _CalendarState extends State<Calendar> {
             body: SizedBox(
               width: double.infinity,
               child: type == CalendarType.week
-                  ? WeekCalendar(currentDate: currentDate)
-                  : WeekCalendar(currentDate: currentDate),
+                  ? WeekCalendar(currentDate: currentDate, scaffoldKey: _sKey)
+                  : WeekCalendar(currentDate: currentDate, scaffoldKey: _sKey,),
             )),
       ),
     );
