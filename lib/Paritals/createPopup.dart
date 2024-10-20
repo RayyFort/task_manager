@@ -7,8 +7,8 @@ import 'package:task_manager/Models/firebase_strings.dart';
 
 class Createpopup<T> extends PopupRoute<T> {
   TextEditingController titleController = TextEditingController();
-  DateTime? startDate = null;
-  DateTime? endDate = null;
+  DateTime? startDate;
+  DateTime? endDate;
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -55,7 +55,7 @@ class Createpopup<T> extends PopupRoute<T> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      margin: EdgeInsets.fromLTRB(500, 250, 500, 250),
+      margin: const EdgeInsets.fromLTRB(500, 250, 500, 250),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -65,7 +65,7 @@ class Createpopup<T> extends PopupRoute<T> {
           children: <Widget>[
             Text('Create Task',
                 style: Theme.of(context).textTheme.headlineSmall),
-            Text("title"),
+            const Text("title"),
             TextField(
               controller: titleController,
             ),
@@ -73,20 +73,20 @@ class Createpopup<T> extends PopupRoute<T> {
               onPressed: () async {
                 startDate = await showOmniDateTimePicker(context: context);
               },
-              child: Text("start date"),
+              child: const Text("start date"),
             ),
             MaterialButton(
               onPressed: () async {
                 endDate = await showOmniDateTimePicker(context: context);
               },
-              child: Text("end date"),
+              child: const Text("end date"),
             ),
-            Spacer(),
+            const Spacer(),
             MaterialButton(
               onPressed: () async {
                 await CreateTask();
               },
-              child: Text("send"),
+              child: const Text("send"),
             )
           ],
         ),

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -68,7 +67,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
               image: AssetImage(
@@ -80,7 +79,7 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
+              const Expanded(
                 child: Center(
                   child: Text(
                     "Task Manager",
@@ -92,11 +91,11 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(14)),
                     color: Color.fromARGB(255, 245, 242, 255)),
                 child: MaterialButton(
-                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                  padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                   onPressed: () async {
                     UserCredential? credentials = await signInWithGoogle();
                     if (credentials?.user != null) {
@@ -109,7 +108,7 @@ class _LoginState extends State<Login> {
                     int i = 1;
                   },
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -117,8 +116,8 @@ class _LoginState extends State<Login> {
                           "customIcons/googleIcon.png",
                           scale: 12.5,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                           child: Text(
                             "Login",
                             style: TextStyle(color: Colors.black, fontSize: 15),
@@ -129,7 +128,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              Spacer()
+              const Spacer()
             ],
           ),
         ),

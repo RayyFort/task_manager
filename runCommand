@@ -1,0 +1,1 @@
+flutter run --build -d chrome --profile --web-launch-url="http://127.0.0.1:8080/" --web-hostname=127.0.0.1 --web-port=8080 -vv

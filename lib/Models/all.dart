@@ -10,7 +10,7 @@ class User {
     SnapshotOptions? options,
   ) {
     final data = snapshot.data();
-    Map<String, dynamic>? tempMap = data?['tasks'];
+    //Map<String, dynamic>? tempMap = data?['tasks'];
     return User(tasks: data?['tasks']);
   }
 

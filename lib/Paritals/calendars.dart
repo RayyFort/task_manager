@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Paritals/days.dart';
 
 class WeekCalendar extends StatefulWidget {
@@ -30,7 +28,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
     return Column(
       children: [
         Container(
-          color: Color.fromARGB(255, 41, 45, 53),
+          color: const Color.fromARGB(255, 41, 45, 53),
           width: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -39,26 +37,26 @@ class _WeekCalendarState extends State<WeekCalendar> {
                 color: Colors.white,
                 child: MaterialButton(
                     onPressed: () {
-                      startDate = startDate.add(Duration(days: -7));
+                      startDate = startDate.add(const Duration(days: -7));
                       setState(() {});
                     },
-                    child: Text("back")),
+                    child: const Text("back")),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                 child: Text(
                   DateFormat("MMMM").format(startDate),
-                  style: TextStyle(fontSize: 24),
+                  style: const TextStyle(fontSize: 24),
                 ),
               ),
               Container(
                 color: Colors.white,
                 child: MaterialButton(
                     onPressed: () {
-                      startDate = startDate.add(Duration(days: 7));
+                      startDate = startDate.add(const Duration(days: 7));
                       setState(() {});
                     },
-                    child: Text("forward")),
+                    child: const Text("forward")),
               ),
             ],
           ),
@@ -73,34 +71,34 @@ class _WeekCalendarState extends State<WeekCalendar> {
               Expanded(
                   child: Center(
                       child: Text(
-                          "Tuesday ${startDate.add(Duration(days: 1)).day}"))),
+                          "Tuesday ${startDate.add(const Duration(days: 1)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Wednesday ${startDate.add(Duration(days: 2)).day}"))),
+                          "Wednesday ${startDate.add(const Duration(days: 2)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Thursday ${startDate.add(Duration(days: 3)).day}"))),
+                          "Thursday ${startDate.add(const Duration(days: 3)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Friday ${startDate.add(Duration(days: 4)).day}"))),
+                          "Friday ${startDate.add(const Duration(days: 4)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Saturday ${startDate.add(Duration(days: 5)).day}"))),
+                          "Saturday ${startDate.add(const Duration(days: 5)).day}"))),
               Expanded(
                   child: Center(
                       child: Text(
-                          "Sunday ${startDate.add(Duration(days: 6)).day}"))),
+                          "Sunday ${startDate.add(const Duration(days: 6)).day}"))),
             ],
           ),
         ),
         Flexible(
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: 100,
                 child: Column(
                   children: [
@@ -108,7 +106,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       Expanded(
                           child: Text(
                         i.toString(),
-                        style: TextStyle(height: 0.1),
+                        style: const TextStyle(height: 0.1),
                       )),
                   ],
                 ),

@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/Models/all.dart';
-import 'package:task_manager/Models/firebase_strings.dart';
 import 'package:task_manager/Paritals/calendars.dart';
 import 'package:task_manager/Paritals/createPopup.dart';
-import 'package:task_manager/Paritals/days.dart';
-import 'Models/all.dart' as all;
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -39,7 +35,7 @@ class _CalendarState extends State<Calendar> {
       //         fit: BoxFit.cover)),
       child: Theme(
         data: ThemeData(
-            textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white))),
+            textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white))),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             drawer: Drawer(
@@ -66,7 +62,7 @@ class _CalendarState extends State<Calendar> {
                 ],
               ),
             ),
-            body: Container(
+            body: SizedBox(
               width: double.infinity,
               child: type == CalendarType.week
                   ? WeekCalendar(currentDate: currentDate)

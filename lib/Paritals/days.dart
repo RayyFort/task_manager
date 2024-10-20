@@ -58,7 +58,7 @@ class _WeekDayState extends State<WeekDay> {
     if (middle == currentTime) {
       return Text(
         task.title!,
-        style: TextStyle(fontSize: 10, height: 0.1),
+        style: const TextStyle(fontSize: 10, height: 0.1),
         overflow: TextOverflow.ellipsis,
       );
     }
@@ -80,7 +80,7 @@ class _WeekDayState extends State<WeekDay> {
               return tempflex;
             }(),
             child: Container(
-              margin: EdgeInsets.all(0.2),
+              margin: const EdgeInsets.all(0.2),
               color: Colors.black,
               width: double.infinity,
             )));
@@ -95,11 +95,10 @@ class _WeekDayState extends State<WeekDay> {
               return tempflex;
             }(),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 94, 255, 0),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               width: double.infinity,
-              child: Expanded(
                 child: MouseRegion(
                   cursor: SystemMouseCursors.basic,
                   onEnter: (event) {
@@ -120,7 +119,7 @@ class _WeekDayState extends State<WeekDay> {
                     children: [
                       Text(
                         tasks[i].title!,
-                        style: TextStyle(height: 0.1),
+                        style: const TextStyle(height: 0.1),
                       ),
                       if (currentHover == i)
                         Positioned(
@@ -129,13 +128,12 @@ class _WeekDayState extends State<WeekDay> {
                               color: Colors.white,
                               child: Text(
                                 "${tasks[i].dateStart!.hour}h${tasks[i].dateStart!.minute.toString().padLeft(2, '0')} - ${tasks[i].dateEnd!.hour}h${tasks[i].dateEnd!.minute.toString().padLeft(2, '0')}",
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               ),
                             ))
                     ],
                   )),
                 ),
-              ),
             ),
           ),
         );
@@ -151,7 +149,7 @@ class _WeekDayState extends State<WeekDay> {
               return tempflex;
             }(),
             child: Container(
-              margin: EdgeInsets.all(0.2),
+              margin: const EdgeInsets.all(0.2),
               color: Colors.black,
               width: double.infinity,
             )));
@@ -166,11 +164,10 @@ class _WeekDayState extends State<WeekDay> {
               return tempflex;
             }(),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 94, 255, 0),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               width: double.infinity,
-              child: Expanded(
                 child: MouseRegion(
                   cursor: SystemMouseCursors.basic,
                   onEnter: (event) {
@@ -191,7 +188,7 @@ class _WeekDayState extends State<WeekDay> {
                     children: [
                       Text(
                         tasks[i].title!,
-                        style: TextStyle(height: 0.1),
+                        style: const TextStyle(height: 0.1),
                       ),
                       if (currentHover == i)
                         Positioned(
@@ -200,13 +197,12 @@ class _WeekDayState extends State<WeekDay> {
                               color: Colors.white,
                               child: Text(
                                 "${tasks[i].dateStart!.hour}h${tasks[i].dateStart!.minute.toString().padLeft(2, '0')} - ${tasks[i].dateEnd!.hour}h${tasks[i].dateEnd!.minute.toString().padLeft(2, '0')}",
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               ),
                             ))
                     ],
                   )),
                 ),
-              ),
             ),
           ),
         );
@@ -222,7 +218,7 @@ class _WeekDayState extends State<WeekDay> {
           return tempflex;
         }(),
         child: Container(
-          margin: EdgeInsets.all(0.2),
+          margin: const EdgeInsets.all(0.2),
           color: Colors.black,
           width: double.infinity,
         )));
@@ -241,7 +237,7 @@ class _WeekDayState extends State<WeekDay> {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black), color: Colors.black),
-      margin: EdgeInsets.fromLTRB(1, 0, 1, 0),
+      margin: const EdgeInsets.fromLTRB(1, 0, 1, 0),
       width: double.infinity,
       child: Column(
           verticalDirection: VerticalDirection.up,
@@ -254,7 +250,7 @@ class _WeekDayState extends State<WeekDay> {
                 Expanded(
                     flex: 1,
                     child: Container(
-                      margin: EdgeInsets.all(0.2),
+                      margin: const EdgeInsets.all(0.2),
                       color: Colors.black,
                       width: double.infinity,
                     )));
