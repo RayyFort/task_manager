@@ -22,11 +22,12 @@ class User {
 enum CalendarType { month, week, day }
 
 class Task {
+  String? id;
   String? title;
   DateTime? dateStart;
   DateTime? dateEnd;
 
-  Task({this.title, this.dateStart, this.dateEnd});
+  Task({this.id, this.title, this.dateStart, this.dateEnd});
 
   factory Task.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -34,6 +35,7 @@ class Task {
   ) {
     final data = snapshot.data();
     return Task(
+        id: snapshot.id,
         title: data?['title'],
         dateStart: (data?['dateStart'] as Timestamp).toDate(),
         dateEnd: (data?['dateEnd'] as Timestamp).toDate());

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:super_context_menu/super_context_menu.dart';
 import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Models/firebase_strings.dart';
 
@@ -19,6 +20,22 @@ class _WeekDayState extends State<WeekDay> {
   FirebaseAuth auth = FirebaseAuth.instance;
   List<Widget> tasksWidget = [];
   int? currentHover;
+
+  Future<void> DeleteTask(String id, int pos) async {
+    await db
+        .collection(USERS)
+        .doc(auth.currentUser!.uid)
+        .collection(TASKS)
+        .doc(id)
+        .delete()
+        .then((doc) {
+      tasks.removeAt(pos);
+      setState(() {});
+      //deleted
+    }, onError: (e) {
+      //not deleted
+    });
+  }
 
   Future<void> getTasks() async {
     tasks = List.empty();
@@ -96,9 +113,10 @@ class _WeekDayState extends State<WeekDay> {
             }(),
             child: Container(
               decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 94, 255, 0),
+                  color: Color.fromARGB(255, 0, 52, 184),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               width: double.infinity,
+              child: ContextMenuWidget(
                 child: MouseRegion(
                   cursor: SystemMouseCursors.basic,
                   onEnter: (event) {
@@ -134,6 +152,17 @@ class _WeekDayState extends State<WeekDay> {
                     ],
                   )),
                 ),
+                menuProvider: (_) {
+                  return Menu(children: [
+                    MenuAction(
+                        title: "Delete",
+                        callback: () {
+                          DeleteTask(tasks[i].id!, i);
+                        }),
+                    MenuAction(title: "Modify", callback: () {})
+                  ]);
+                },
+              ),
             ),
           ),
         );
@@ -165,9 +194,10 @@ class _WeekDayState extends State<WeekDay> {
             }(),
             child: Container(
               decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 94, 255, 0),
+                  color: Color.fromARGB(255, 0, 52, 184),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               width: double.infinity,
+              child: ContextMenuWidget(
                 child: MouseRegion(
                   cursor: SystemMouseCursors.basic,
                   onEnter: (event) {
@@ -199,10 +229,21 @@ class _WeekDayState extends State<WeekDay> {
                                 "${tasks[i].dateStart!.hour}h${tasks[i].dateStart!.minute.toString().padLeft(2, '0')} - ${tasks[i].dateEnd!.hour}h${tasks[i].dateEnd!.minute.toString().padLeft(2, '0')}",
                                 style: const TextStyle(color: Colors.black),
                               ),
-                            ))
+                            )),
                     ],
                   )),
                 ),
+                menuProvider: (_) {
+                  return Menu(children: [
+                    MenuAction(
+                        title: "Delete",
+                        callback: () {
+                          DeleteTask(tasks[i].id!, i);
+                        }),
+                    MenuAction(title: "Modify", callback: () {})
+                  ]);
+                },
+              ),
             ),
           ),
         );
@@ -211,11 +252,14 @@ class _WeekDayState extends State<WeekDay> {
     }
     allHours.add(Expanded(
         flex: () {
-          int tempflex = 1440 -
-              ((tasks[tasks.length - 1].dateEnd!.hour * 60) +
-                  tasks[tasks.length - 1].dateEnd!.minute);
-          flexSum += tempflex;
-          return tempflex;
+          if (tasks.length > 0) {
+            int tempflex = 1440 -
+                ((tasks[tasks.length - 1].dateEnd!.hour * 60) +
+                    tasks[tasks.length - 1].dateEnd!.minute);
+            flexSum += tempflex;
+            return tempflex;
+          }
+          return 1;
         }(),
         child: Container(
           margin: const EdgeInsets.all(0.2),
