@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Models/firebase_strings.dart';
+import 'package:task_manager/Paritals/dateSelector.dart';
 
 class Createpopup<T> extends PopupRoute<T> {
   TextEditingController titleController = TextEditingController();
@@ -69,17 +70,13 @@ class Createpopup<T> extends PopupRoute<T> {
             TextField(
               controller: titleController,
             ),
-            MaterialButton(
-              onPressed: () async {
-                startDate = await showOmniDateTimePicker(context: context);
+            NotificationListener<taskCreationNotification>(
+              child: DateSelector(),
+              onNotification: (n) {
+                this.startDate = n.startDate;
+                this.endDate = n.endDate;
+                return true;
               },
-              child: const Text("start date"),
-            ),
-            MaterialButton(
-              onPressed: () async {
-                endDate = await showOmniDateTimePicker(context: context);
-              },
-              child: const Text("end date"),
             ),
             const Spacer(),
             MaterialButton(
@@ -87,10 +84,22 @@ class Createpopup<T> extends PopupRoute<T> {
                 await CreateTask();
               },
               child: const Text("send"),
-            )
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class taskCreationNotification extends Notification {
+  final DateTime startDate;
+  final DateTime endDate;
+  taskCreationNotification(this.startDate, this.endDate);
+}
+
+class TaskCreationTransition {
+  final DateTime startDate;
+  final DateTime endDate;
+  TaskCreationTransition(this.startDate, this.endDate);
 }
