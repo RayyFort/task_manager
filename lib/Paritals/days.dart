@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:super_context_menu/super_context_menu.dart';
 import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Models/firebase_strings.dart';
+import 'package:task_manager/Paritals/createPopup.dart';
 
 class WeekDay extends StatefulWidget {
   WeekDay({super.key, required this.currentDate});
@@ -159,7 +160,12 @@ class _WeekDayState extends State<WeekDay> {
                         callback: () {
                           DeleteTask(tasks[i].id!, i);
                         }),
-                    MenuAction(title: "Modify", callback: () {})
+                    MenuAction(
+                        title: "Modify",
+                        callback: () {
+                          Navigator.of(context)
+                              .push(Createpopup<void>(tasks[i]));
+                        })
                   ]);
                 },
               ),
@@ -240,7 +246,12 @@ class _WeekDayState extends State<WeekDay> {
                         callback: () {
                           DeleteTask(tasks[i].id!, i);
                         }),
-                    MenuAction(title: "Modify", callback: () {})
+                    MenuAction(
+                        title: "Modify",
+                        callback: () {
+                          Navigator.of(context)
+                              .push(Createpopup<void>(tasks[i]));
+                        })
                   ]);
                 },
               ),

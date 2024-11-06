@@ -36,7 +36,8 @@ class _CalendarState extends State<Calendar> {
       //         fit: BoxFit.cover)),
       child: Theme(
         data: ThemeData(
-            textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white))),
+            textTheme:
+                const TextTheme(bodyMedium: TextStyle(color: Colors.white))),
         child: Scaffold(
             key: _sKey,
             backgroundColor: Colors.transparent,
@@ -54,7 +55,7 @@ class _CalendarState extends State<Calendar> {
                     title: const Text('Add task'),
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.of(context).push(Createpopup<void>());
+                      Navigator.of(context).push(Createpopup<void>(null));
                     },
                   ),
                   ListTile(
@@ -68,7 +69,10 @@ class _CalendarState extends State<Calendar> {
               width: double.infinity,
               child: type == CalendarType.week
                   ? WeekCalendar(currentDate: currentDate, scaffoldKey: _sKey)
-                  : WeekCalendar(currentDate: currentDate, scaffoldKey: _sKey,),
+                  : WeekCalendar(
+                      currentDate: currentDate,
+                      scaffoldKey: _sKey,
+                    ),
             )),
       ),
     );

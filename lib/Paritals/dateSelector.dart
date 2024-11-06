@@ -5,16 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:task_manager/Paritals/createPopup.dart';
 
 class DateSelector extends StatefulWidget {
-  DateSelector({super.key});
+  DateSelector({super.key, this.dateStart, this.dateEnd});
+
+  DateTime? dateStart;
+  DateTime? dateEnd;
 
   @override
   State<StatefulWidget> createState() => _DateSelectorState();
 }
 
 class _DateSelectorState extends State<DateSelector> {
-  DateTime? startDate = DateTime.now();
-  DateTime? endDate = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,16 +22,17 @@ class _DateSelectorState extends State<DateSelector> {
           children: [
             Container(
                 margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                child: Text(startDate.toString())),
-            Text(endDate.toString())
+                child: Text(widget.dateStart.toString())),
+            Text(widget.dateEnd.toString())
           ],
         ),
         onTap: () {
           Navigator.of(context).push(Selector()).then((value) {
             value = value as TaskCreationTransition;
-            startDate = value?.startDate;
-            endDate = value?.endDate;
-            taskCreationNotification(startDate!, endDate!).dispatch(context);
+            widget.dateStart = value?.startDate;
+            widget.dateEnd = value?.endDate;
+            taskCreationNotification(widget.dateStart!, widget.dateEnd!)
+                .dispatch(context);
             setState(() {});
           });
         });
@@ -188,24 +189,24 @@ class TimeSelector<T> extends PopupRoute<T> {
                       MaterialButton(
                         color: const Color.fromARGB(255, 86, 204, 101),
                         onPressed: () {
-                          DateTime startDate = DateTime(
+                          DateTime dateStart = DateTime(
                               dateBase.year,
                               dateBase.month,
                               dateBase.day,
                               int.parse(startHourController.text),
                               int.tryParse(startMinuteController.text) ?? 0);
-                          DateTime endDate = DateTime(
+                          DateTime dateEnd = DateTime(
                               dateBase.year,
                               dateBase.month,
                               dateBase.day,
                               int.parse(endHourController.text),
                               int.tryParse(endMinuteController.text) ?? 0);
 
-                          taskCreationNotification(startDate, endDate)
+                          taskCreationNotification(dateStart, dateEnd)
                               .dispatch(context);
 
                           Navigator.pop(context,
-                              new TaskCreationTransition(startDate, endDate));
+                              new TaskCreationTransition(dateStart, dateEnd));
                         },
                         child: Text("Done"),
                       ),

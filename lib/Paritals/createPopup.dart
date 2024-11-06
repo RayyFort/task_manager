@@ -8,6 +8,18 @@ import 'package:task_manager/Paritals/dateSelector.dart';
 
 class Createpopup<T> extends PopupRoute<T> {
   TextEditingController titleController = TextEditingController();
+  String? taskId = null;
+
+  Createpopup(Task? task) {
+    if (task != null) {
+      print(task.title);
+      taskId = task.id;
+      startDate = task.dateStart;
+      endDate = task.dateEnd;
+      titleController.text = task.title!;
+    }
+  }
+
   DateTime? startDate;
   DateTime? endDate;
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -28,26 +40,50 @@ class Createpopup<T> extends PopupRoute<T> {
   Duration get transitionDuration => const Duration(milliseconds: 300);
 
   Future<void> CreateTask() async {
-    await db
-        .collection(USERS)
-        .doc(auth.currentUser!.uid)
-        .collection(TASKS)
-        .withConverter(
-          fromFirestore: Task.fromFirestore,
-          toFirestore: (value, options) => value.toFirestore(),
-        )
-        .add(Task(
-            title: titleController.text,
-            dateStart: startDate,
-            dateEnd: endDate))
-        .then(
-      (value) {
-        print("success adding task");
-      },
-      onError: (e) {
-        print(e);
-      },
-    );
+    if (taskId != null) {
+      await db
+          .collection(USERS)
+          .doc(auth.currentUser!.uid)
+          .collection(TASKS)
+          .doc(taskId)
+          .withConverter(
+            fromFirestore: Task.fromFirestore,
+            toFirestore: (value, options) => value.toFirestore(),
+          )
+          .update({
+        "title": titleController.text,
+        "dateStart": startDate,
+        "dateEnd": endDate
+      }).then(
+        (value) {
+          print("success adding task");
+        },
+        onError: (e) {
+          print(e);
+        },
+      );
+    } else {
+      await db
+          .collection(USERS)
+          .doc(auth.currentUser!.uid)
+          .collection(TASKS)
+          .withConverter(
+            fromFirestore: Task.fromFirestore,
+            toFirestore: (value, options) => value.toFirestore(),
+          )
+          .add(Task(
+              title: titleController.text,
+              dateStart: startDate,
+              dateEnd: endDate))
+          .then(
+        (value) {
+          print("success adding task");
+        },
+        onError: (e) {
+          print(e);
+        },
+      );
+    }
   }
 
   @override
@@ -71,7 +107,10 @@ class Createpopup<T> extends PopupRoute<T> {
               controller: titleController,
             ),
             NotificationListener<taskCreationNotification>(
-              child: DateSelector(),
+              child: DateSelector(
+                dateStart: this.startDate,
+                dateEnd: this.endDate,
+              ),
               onNotification: (n) {
                 this.startDate = n.startDate;
                 this.endDate = n.endDate;
