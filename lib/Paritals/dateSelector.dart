@@ -27,7 +27,9 @@ class _DateSelectorState extends State<DateSelector> {
           ],
         ),
         onTap: () {
-          Navigator.of(context).push(Selector()).then((value) {
+          Navigator.of(context)
+              .push(Selector(widget.dateStart, widget.dateEnd))
+              .then((value) {
             value = value as TaskCreationTransition;
             widget.dateStart = value?.startDate;
             widget.dateEnd = value?.endDate;
@@ -41,6 +43,13 @@ class _DateSelectorState extends State<DateSelector> {
 
 class Selector<T> extends PopupRoute<T> {
   DateTime date = DateTime.now();
+  DateTime? dateStart;
+  DateTime? dateEnd;
+
+  Selector(DateTime? start, DateTime? end) {
+    dateStart = start;
+    dateEnd = end;
+  }
 
   @override
   Color? get barrierColor => Color(0x88000000);
@@ -63,8 +72,8 @@ class Selector<T> extends PopupRoute<T> {
         padding: EdgeInsets.all(10),
         child: Column(children: [
           CalendarDatePicker(
-              currentDate: DateTime.now(),
-              initialDate: date,
+              currentDate: dateStart ?? date,
+              initialDate: dateStart ?? date,
               firstDate: (DateTime.now().subtract(Duration(days: 36500))),
               lastDate: (DateTime.now().add(Duration(days: 36500))),
               onDateChanged: (DateTime dateInput) {
@@ -76,7 +85,8 @@ class Selector<T> extends PopupRoute<T> {
             onPressed: () async {
               final completer = Completer();
               final result = await Navigator.of(context).pushReplacement(
-                  TimeSelector<TaskCreationTransition>(this.date),
+                  TimeSelector<TaskCreationTransition>(
+                      this.date, this.dateStart, this.dateEnd),
                   result: completer.future);
               completer.complete(result);
             },
@@ -93,14 +103,29 @@ class Selector<T> extends PopupRoute<T> {
 }
 
 class TimeSelector<T> extends PopupRoute<T> {
-  TimeSelector(DateTime chosenDate) {
+  TimeSelector(DateTime chosenDate, DateTime? start, DateTime? end) {
     dateBase = chosenDate;
+    dateStart = start;
+    dateEnd = end;
+    startTime = dateStart ?? DateTime.now();
+    endTime = dateEnd ?? DateTime.now();
+
+    if (dateStart != null) {
+      startHourController.text = dateStart!.hour.toString();
+      startMinuteController.text = dateStart!.minute.toString();
+    }
+    if (dateEnd != null) {
+      endHourController.text = dateEnd!.hour.toString();
+      endMinuteController.text = dateEnd!.minute.toString();
+    }
   }
 
+  DateTime? dateStart;
+  DateTime? dateEnd;
   late DateTime dateBase;
 
-  DateTime startTime = DateTime.now();
-  DateTime endTime = DateTime.now();
+  late DateTime startTime;
+  late DateTime endTime;
   TextEditingController startHourController = new TextEditingController();
   TextEditingController startMinuteController = new TextEditingController();
   TextEditingController endHourController = new TextEditingController();
