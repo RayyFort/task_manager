@@ -1,5 +1,5 @@
 # task_manager
-An online calendar
+An open source calendar calendar that mainly serve to organize your day
 
 ## Running the code locally
 
