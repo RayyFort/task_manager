@@ -5,6 +5,7 @@ import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Models/firebase_strings.dart';
 import 'package:task_manager/Paritals/dateSelector.dart';
+import 'package:task_manager/calendar.dart';
 
 class Createpopup<T> extends PopupRoute<T> {
   TextEditingController titleController = TextEditingController();
@@ -39,7 +40,7 @@ class Createpopup<T> extends PopupRoute<T> {
   @override
   Duration get transitionDuration => const Duration(milliseconds: 300);
 
-  Future<void> CreateTask() async {
+  Future<void> CreateTask(BuildContext context) async {
     if (taskId != null) {
       await db
           .collection(USERS)
@@ -56,7 +57,12 @@ class Createpopup<T> extends PopupRoute<T> {
         "dateEnd": endDate
       }).then(
         (value) {
-          print("success adding task");
+          Navigator.pop(context);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const Calendar(),
+            ),
+          );
         },
         onError: (e) {
           print(e);
@@ -77,7 +83,12 @@ class Createpopup<T> extends PopupRoute<T> {
               dateEnd: endDate))
           .then(
         (value) {
-          print("success adding task");
+          Navigator.pop(context);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const Calendar(),
+            ),
+          );
         },
         onError: (e) {
           print(e);
@@ -120,7 +131,7 @@ class Createpopup<T> extends PopupRoute<T> {
             const Spacer(),
             MaterialButton(
               onPressed: () async {
-                await CreateTask();
+                await CreateTask(context);
               },
               child: const Text("send"),
             ),
