@@ -60,7 +60,9 @@ class _CalendarState extends State<Calendar> {
                   ),
                   ListTile(
                     title: const Text('Logout'),
-                    onTap: () {},
+                    onTap: () {
+                      _signOut();
+                    },
                   ),
                 ],
               ),
@@ -76,5 +78,10 @@ class _CalendarState extends State<Calendar> {
             )),
       ),
     );
+  }
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 }
