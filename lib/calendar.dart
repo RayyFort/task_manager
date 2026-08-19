@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/Models/all.dart';
 import 'package:task_manager/Paritals/calendars.dart';
 import 'package:task_manager/Paritals/createPopup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -56,6 +57,14 @@ class _CalendarState extends State<Calendar> {
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.of(context).push(Createpopup<void>(null));
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Minmax Tracker'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      launchUrl(Uri.parse('http://34.71.248.213:3787'),
+                          webOnlyWindowName: '_blank');
                     },
                   ),
                   ListTile(
