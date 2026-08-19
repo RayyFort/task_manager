@@ -63,7 +63,7 @@ class _CalendarState extends State<Calendar> {
                     title: const Text('Minmax Tracker'),
                     onTap: () {
                       Navigator.pop(context);
-                      launchUrl(Uri.parse('http://34.71.248.213:3787'),
+                      launchUrl(Uri.parse('https://minmax.rays.website'),
                           webOnlyWindowName: '_blank');
                     },
                   ),
